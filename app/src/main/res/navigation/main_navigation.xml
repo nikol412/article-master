@@ -7,4 +7,8 @@
         android:id="@+id/overviewFragment"
         android:name="com.nikol412.articlemaster.ui.overview.OverviewFragment"
         android:label="OverviewFragment" />
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.nikol412.articlemaster.ui.collection.CollectionFragment"
+        android:label="CollectionFragment" />
 </navigation>

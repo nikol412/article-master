@@ -1,10 +1,12 @@
 package com.nikol412.articlemaster.ui.overview.adapter
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nikol412.articlemaster.databinding.ItemCollectionBinding
+import com.nikol412.articlemaster.databinding.ItemCollectionRowBinding
 
 class CollectionsAdapter(private val onCollectionClick: OnCollectionClick) :
     RecyclerView.Adapter<CollectionViewHolder>() {
@@ -12,7 +14,7 @@ class CollectionsAdapter(private val onCollectionClick: OnCollectionClick) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionViewHolder {
         return CollectionViewHolder(
-            ItemCollectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemCollectionRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -47,7 +49,7 @@ class CollectionsAdapter(private val onCollectionClick: OnCollectionClick) :
     }
 }
 
-class CollectionViewHolder(private val binding: ItemCollectionBinding) :
+class CollectionViewHolder(private val binding: ItemCollectionRowBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun onBind(item: CollectionItem, listener: OnCollectionClick) {
@@ -68,4 +70,29 @@ interface OnCollectionClick {
 data class CollectionItem(
     val title: String,
     val contentBlocks: List<String>
-)
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.createStringArrayList()!!
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(title)
+        parcel.writeStringList(contentBlocks)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<CollectionItem> {
+        override fun createFromParcel(parcel: Parcel): CollectionItem {
+            return CollectionItem(parcel)
+        }
+
+        override fun newArray(size: Int): Array<CollectionItem?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
