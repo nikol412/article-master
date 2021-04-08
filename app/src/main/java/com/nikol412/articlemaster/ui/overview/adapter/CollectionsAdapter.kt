@@ -55,8 +55,8 @@ class CollectionViewHolder(private val binding: ItemCollectionBinding) :
             rootLayout.setOnClickListener {
                 listener.onClick(item)
             }
-            textViewTitle.text = item.content
-            textViewContent.text = item.content
+            textViewTitle.text = item.title
+            textViewContent.text = item.contentBlocks.first()
         }
     }
 }
@@ -66,5 +66,6 @@ interface OnCollectionClick {
 }
 
 data class CollectionItem(
-    val content: String
+    val title: String,
+    val contentBlocks: List<String>
 )

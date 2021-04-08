@@ -4,12 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nikol412.articlemaster.ui.overview.adapter.CollectionItem
 
-class OverviewViewModel: ViewModel() {
+class OverviewViewModel : ViewModel() {
 
     val collections = MutableLiveData(mutableListOf<CollectionItem>())
 
     init {
-        val testList = (1..10).map { CollectionItem("$it") }
+        val testList = (1..10).map {
+            CollectionItem(
+                "Title $it",
+                listOf("content $it", "content $it", "content $it", "content $it", "content $it")
+            )
+        }
         collections.value = testList.toMutableList()
     }
 }

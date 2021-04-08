@@ -23,7 +23,7 @@ class OverviewFragment: Fragment() {
         CollectionsAdapter(object: OnCollectionClick {
             override fun onClick(item: CollectionItem) {
                 //TODO implement navigation to description of collection
-                Toast.makeText(requireContext(), item.content, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
             }
         })
     }
